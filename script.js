@@ -56,14 +56,12 @@ function createSoundEffect(slot, cfg = null) {
   const noOfSound = cfg?.noOfSound ?? nextSoundId++;
   if (cfg?.noOfSound) usedIds.add(noOfSound);
 
-  /* ---------- visual difference ---------- */
   const isLoaded = !!cfg?.fileName;
   const labelCls = isLoaded ? "text-success fw-bold" : "text-muted";
   const fileDisplay = isLoaded
     ? `<strong>${cfg.fileName}</strong>`
     : `<em>No file selected</em>`;
-  const btnCls = isLoaded
-    ? "btn-success" : "btn-outline-secondary";
+  const btnCls = isLoaded ? "btn-success" : "btn-outline-secondary";
   const btnDisabled = isLoaded ? "" : "disabled";
 
   const template = `
@@ -149,13 +147,14 @@ function createSoundEffect(slot, cfg = null) {
     audio.currentTime = 0;
   });
 
-  /* ---- import: base64 → blob → play ---- */
+  /* ---- IMPORT: base64 → blob → URL (FIXED: saves objectURL) ---- */
   if (cfg?.base64 && cfg?.mime) {
     const blob = base64ToBlob(cfg.base64, cfg.mime);
     const url = URL.createObjectURL(blob);
-    audioData[slot - 1].objectURL = url;
+    audioData[slot - 1].objectURL = url;  // ← CRITICAL FIX
     audio.src = url;
     audio.load();
+    fileNameDiv.innerHTML = `<strong>${cfg.fileName}</strong>`;
     playBtn.disabled = false;
     stopBtn.disabled = false;
     playBtn.className = "btn btn-success me-1";
@@ -187,27 +186,42 @@ document.getElementById("delete-button").onclick = () => {
   counter--;
 };
 
-/* ==================== EXPORT CONFIG ==================== */
+/* ==================== EXPORT CONFIG (FIXED: includes imported sounds) ==================== */
 document.getElementById("export-config").onclick = async () => {
   const sounds = [];
 
   for (let i = 0; i < audioData.length; i++) {
     const d = audioData[i];
-    if (!d || !d.objectURL) continue;
+    if (!d || !d.objectURL) continue;  // Only export if we have a blob URL
 
     const fileInput = document.getElementById(`sound-effect-${i + 1}-file`);
     const file = fileInput.files[0];
-    if (!file) continue;
 
-    const base64 = await fileToBase64(file);
-    sounds.push({
-      fileName: d.fileName,
-      noOfSound: d.noOfSound,
-      volume: d.volume,
-      slot: i + 1,
-      mime: file.type || "audio/mpeg",
-      base64
-    });
+    // If no file (imported via base64), we still have the blob → skip base64 re-encode
+    if (file) {
+      const base64 = await fileToBase64(file);
+      sounds.push({
+        fileName: d.fileName,
+        noOfSound: d.noOfSound,
+        volume: d.volume,
+        slot: i + 1,
+        mime: file.type || "audio/mpeg",
+        base64
+      });
+    } else {
+      // Re-use the stored objectURL → convert back to base64
+      const response = await fetch(d.objectURL);
+      const blob = await response.blob();
+      const base64 = await fileToBase64(blob);
+      sounds.push({
+        fileName: d.fileName,
+        noOfSound: d.noOfSound,
+        volume: d.volume,
+        slot: i + 1,
+        mime: blob.type || "audio/mpeg",
+        base64
+      });
+    }
   }
 
   const json = JSON.stringify({ version: 1, sounds }, null, 2);
@@ -246,19 +260,19 @@ importInput.addEventListener("change", () => {
       // Find highest slot in config
       const maxSlot = Math.max(...cfg.sounds.map(s => s.slot), 12);
 
-      // Ensure we have enough slots (1 to maxSlot)
+      // Ensure we have enough slots
       while (counter < maxSlot) {
         document.getElementById("add-button").click();
       }
 
-      // Clear existing content for ALL slots (1 to maxSlot)
+      // Clear existing content
       for (let slot = 1; slot <= maxSlot; slot++) {
         const existing = document.querySelector(`[data-index="${slot}"]`);
         if (existing) existing.remove();
-        audioData[slot - 1] = null; // clear old data
+        audioData[slot - 1] = null;
       }
 
-      // Re-create slots in order (1, 2, 3, ...)
+      // Re-create slots in order
       for (let slot = 1; slot <= maxSlot; slot++) {
         const soundConfig = cfg.sounds.find(s => s.slot === slot);
         createSoundEffect(slot, soundConfig || null);
@@ -270,7 +284,7 @@ importInput.addEventListener("change", () => {
         if (s.noOfSound >= nextSoundId) nextSoundId = s.noOfSound + 1;
       });
 
-      alert("Config imported! All sounds are in correct slots.");
+      alert("Config imported! You can now export again.");
     } catch (err) {
       alert("Import failed: " + err.message);
     }
