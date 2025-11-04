@@ -1,140 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Sound Effect Player</title>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-	<div class="container">
-		<div class="jumbotron d-flex justify-content-between align-items-center">
-			<h1 class="display-4">Sound Effect Player</h1>
-			<div>
-			  <button type="button" id="add-button" class="btn btn-primary mr-2">Add</button>
-			  <button type="button" id="delete-button" class="btn btn-danger">Delete</button>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-1" class="control-label">Sound Effect 1:</label>
-					<input type="file" id="sound-effect-1-file" class="form-control-file">
-					<button id="sound-effect-1-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-1-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-1-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-2" class="control-label">Sound Effect 2:</label>
-					<input type="file" id="sound-effect-2-file" class="form-control-file">
-					<button id="sound-effect-2-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-2-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-2-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-3" class="control-label">Sound Effect 3:</label>
-					<input type="file" id="sound-effect-3-file" class="form-control-file">
-					<button id="sound-effect-3-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-3-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-3-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-4" class="control-label">Sound Effect 4:</label>
-					<input type="file" id="sound-effect-4-file" class="form-control-file">
-					<button id="sound-effect-4-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-4-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-4-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-5" class="control-label">Sound Effect 5:</label>
-					<input type="file" id="sound-effect-5-file" class="form-control-file">
-					<button id="sound-effect-5-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-5-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-5-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-6" class="control-label">Sound Effect 6:</label>
-					<input type="file" id="sound-effect-6-file" class="form-control-file">
-					<button id="sound-effect-6-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-6-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-6-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-7" class="control-label">Sound Effect 7:</label>
-					<input type="file" id="sound-effect-7-file" class="form-control-file">
-					<button id="sound-effect-7-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-7-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-7-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-8" class="control-label">Sound Effect 8:</label>
-					<input type="file" id="sound-effect-8-file" class="form-control-file">
-					<button id="sound-effect-8-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-8-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-8-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-9" class="control-label">Sound Effect 9:</label>
-					<input type="file" id="sound-effect-9-file" class="form-control-file">
-					<button id="sound-effect-9-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-9-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-9-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-10" class="control-label">Sound Effect 10:</label>
-					<input type="file" id="sound-effect-10-file" class="form-control-file">
-					<button id="sound-effect-10-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-10-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-10-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-11" class="control-label">Sound Effect 11:</label>
-					<input type="file" id="sound-effect-11-file" class="form-control-file">
-					<button id="sound-effect-11-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-11-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-11-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="sound-effect-12" class="control-label">Sound Effect 12:</label>
-					<input type="file" id="sound-effect-12-file" class="form-control-file">
-					<button id="sound-effect-12-play-button" class="btn btn-primary mt-2" disabled>Play</button>
-					<button id="sound-effect-12-stop-button" class="btn btn-danger mt-2" disabled>Stop</button>
-					<input type="range" id="sound-effect-12-volume-slider" class="form-control-range mt-2" min="0" max="100" value="100">
-				</div>
-			</div>
-		</div>
-		<div class="row" id="new">
-		
-		</div>
-	
-	</div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sound Effect Player</title>
 
-	<script src="script.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <style>
+    .theme-light { background-color: #f8f9fa; color: #212529; }
+    .theme-light .jumbotron { background-color: #e9ecef; }
+    .theme-light .form-control-file, .theme-light .form-control-range { background-color: #fff; }
+
+    .theme-dark { background-color: #212529; color: #f8f9fa; }
+    .theme-dark .jumbotron { background-color: #343a40; }
+    .theme-dark .form-control-file, .theme-dark .form-control-range { background-color: #495057; color: #f8f9fa; border-color: #6c757d; }
+
+    .volume-viewer { font-size: 0.9rem; font-weight: bold; margin-left: 8px; min-width: 40px; display: inline-block; text-align: right; }
+
+    .theme-switch-wrapper { display: flex; align-items: center; }
+    .theme-switch { display: inline-block; height: 34px; position: relative; width: 60px; }
+    .theme-switch input { opacity: 0; width: 0; height: 0; }
+    .slider { background-color: #ccc; bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0; transition: .4s; border-radius: 34px; }
+    .slider:before { background-color: white; bottom: 4px; content: ""; height: 26px; left: 4px; position: absolute; transition: .4s; width: 26px; border-radius: 50%; }
+    input:checked + .slider { background-color: #2196F3; }
+    input:checked + .slider:before { transform: translateX(26px); }
+    .slider.round { border-radius: 34px; }
+    .slider.round:before { border-radius: 50%; }
+
+    .config-buttons { margin-left: 15px; }
+  </style>
+</head>
+<body class="theme-light">
+
+  <div class="container py-4">
+    <div class="jumbotron d-flex justify-content-between align-items-center flex-wrap">
+      <h1 class="display-4 mb-0">Sound Effect Player</h1>
+      <div class="d-flex align-items-center flex-wrap">
+        <div class="mr-3 mb-2">
+          <button id="add-button" class="btn btn-primary">Add</button>
+          <button id="delete-button" class="btn btn-danger ml-2">Delete</button>
+        </div>
+
+        <!-- Export / Import -->
+        <div class="config-buttons mb-2">
+          <button id="export-config" class="btn btn-success">Export Config</button>
+          <button id="import-config" class="btn btn-info ml-2">Import Config</button>
+          <input type="file" id="import-file-input" accept=".json" style="display: none;">
+        </div>
+
+        <!-- Theme Switch -->
+        <div class="theme-switch-wrapper ml-3">
+          <label class="theme-switch">
+            <input type="checkbox" id="theme-toggle">
+            <span class="slider round"></span>
+          </label>
+          <span class="ml-2" id="theme-label">Light</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="sound-effects-container"></div>
+    <div class="row" id="new"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
